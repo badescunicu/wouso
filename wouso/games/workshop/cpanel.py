@@ -43,6 +43,7 @@ def workshop_home(request, **kwargs):
 
 @staff_required
 def add_group(request):
+    #TODO Use a class based view
     if request.method == 'POST':
         form = AGForm(request.POST)
         if form.is_valid():
@@ -62,6 +63,7 @@ def add_group(request):
 
 @staff_required
 def edit_group(request, semigroup):
+    #TODO Use a class based view
     semigroup = get_object_or_404(Semigroup, pk=semigroup)
 
     if request.method == 'POST':
@@ -131,6 +133,7 @@ def schedule(request):
 
 @staff_required
 def schedule_change(request, schedule=None):
+    #TODO Use a class based view
     if schedule:
         schedule = get_object_or_404(Schedule, pk=schedule)
 
@@ -301,6 +304,7 @@ def workshop_grade_assessment(request, assessment):
 
 @staff_required
 def workshop_add(request):
+    #TODO Use a class based view
     error = ''
     if request.method == 'POST':
         form = WAForm(request.POST)
@@ -392,6 +396,7 @@ def workshop_assessment_edit(request, assessment, **kwargs):
 
 @staff_required
 def reset_reviews(request, workshop, assessment):
+    #TODO: Move logic to model
     """
     Remove all non expected reviews given to this assessment
     """
@@ -409,6 +414,7 @@ def gradebook(request, semigroup):
     """
     List all students and grades
     """
+    #TODO Use a generic class based view
     semigroup = get_object_or_404(Semigroup, pk=semigroup)
     players = semigroup.players.all().order_by('user__last_name', 'user__first_name')
 

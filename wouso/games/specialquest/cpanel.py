@@ -13,6 +13,7 @@ from forms import TaskForm
 
 @permission_required('specialquest.change_specialquestuser')
 def home(request):
+    #TODO Use generic class based view (ListView)
     tasks = SpecialQuestTask.objects.all()
 
     return render_to_response('specialquest/cpanel_home.html',
@@ -22,6 +23,7 @@ def home(request):
 
 @permission_required('specialquest.change_specialquestuser')
 def groups(request):
+    #TODO Use generic class based view (ListView)
     groups = SpecialQuestGroup.objects.all()
 
     return render_to_response('specialquest/cpanel_groups.html',
@@ -159,6 +161,7 @@ def group_active_toggle(request, group):
 
 @permission_required('specialquest.change_specialquestuser')
 def group_delete(request, group):
+    #TODO move the logic for deleting a group in model
     group = get_object_or_404(SpecialQuestGroup, id=group)
 
     for p in group.members:

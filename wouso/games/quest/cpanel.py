@@ -17,6 +17,7 @@ from forms import QuestCpanel
 
 @permission_required('quest.change_quest')
 def quest_home(request):
+#TODO Use generic class based view (maybe ListView)
     quests = Quest.objects.all()
     final = QuestGame.get_final()
 
@@ -108,6 +109,7 @@ def quest_bonus(request, quest):
 
 @permission_required('quest.change_quest')
 def register_results(request, id):
+    #TODO move logic to model
     quest = get_object_or_404(Quest, pk=id)
     if not quest.is_active:
         for user in quest.questuser_set.all():

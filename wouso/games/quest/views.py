@@ -63,6 +63,7 @@ def sidebar_widget(request):
              })
 
 def history(request):
+#TODO Use generic class based view (ListView)
     """
     Return passed quests info
     """

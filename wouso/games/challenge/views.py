@@ -36,6 +36,7 @@ def do_result(request, error='', message=''):
 
 @login_required
 def challenge(request, id):
+    #TODO: Refactor, use class based view
     """ Displays a challenge, only if status = accepted
     This is play """
     chall_user = request.user.get_profile().get_extension(ChallengeUser)
@@ -200,6 +201,7 @@ def header_link(request):
     return dict(link=url, count=count, text=_('Challenges'))
 
 def sidebar_widget(request):
+    #TODO Use generic class based view ListView
     if not request.user.is_authenticated():
         return ''
     chall_user = request.user.get_profile().get_extension(ChallengeUser)
@@ -213,6 +215,7 @@ def sidebar_widget(request):
     return render_to_string('challenge/sidebar.html', {'challenges': challs, 'challenge': ChallengeGame,  'chall_user': chall_user})
 
 def history(request, playerid):
+    #TODO Use generic class based view ListView
     player = get_object_or_404(ChallengeUser, pk=playerid)
 
     challs = [p.challenge for p in Participant.objects.filter(user=player)]
@@ -236,6 +239,7 @@ def challenge_player(request):
 
 @login_required
 def challenge_random(request):
+    #TODO move select challengeable players to model
     setting = BoolSetting.get('disable-challenge-random').get_value()
     if setting:
         messages.error(request, _('Random challenge disabled'))
@@ -262,6 +266,7 @@ def challenge_random(request):
 @login_required
 def detailed_challenge_stats(request, target_id, player_id=None):
     """ Statistics for one pair of users, current_player and target_id """
+    #TODO move chall_total logic to model and use ListView
     if player_id and request.user.get_profile().in_staff_group():
         current_player = get_object_or_404(Player, pk=player_id).get_extension(ChallengeUser)
     else:
@@ -286,6 +291,7 @@ def detailed_challenge_stats(request, target_id, player_id=None):
 @login_required
 def challenge_stats(request, player_id=None):
     """ Statistics for one user """
+    #TODO use a dictionary instead of all those variables
     if player_id and request.user.get_profile().in_staff_group():
         current_player = get_object_or_404(Player, pk=player_id).get_extension(ChallengeUser)
     else:

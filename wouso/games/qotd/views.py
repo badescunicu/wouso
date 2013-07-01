@@ -12,6 +12,7 @@ from forms import QotdForm
 
 @login_required
 def index(request):
+    #TODO Use class based view
     if QotdGame.disabled():
         return HttpResponseRedirect(reverse('wouso.interface.views.homepage'))
 
@@ -88,6 +89,7 @@ def history(request):
 
 def sidebar_widget(request):
     # TODO: nothing should happen in the sidebar_widget
+    # I don't know what this view is doing
     qotd = QotdGame.get_for_today()
     qotd_user = request.user.get_profile().get_extension(QotdUser)
 

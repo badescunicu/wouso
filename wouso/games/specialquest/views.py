@@ -36,6 +36,7 @@ def task(request, task_id):
 
 @login_required
 def setup_accept(request, group_id):
+    #TODO create an add_to_group method in model
     user = request.user.get_profile().get_extension(SpecialQuestUser)
     group = get_object_or_404(SpecialQuestGroup, pk=group_id)
 
@@ -55,6 +56,7 @@ def setup_accept(request, group_id):
 
 @login_required
 def setup_leave(request):
+    #TODO move logic for user leaving a group to model
     user = request.user.get_profile().get_extension(SpecialQuestUser)
     group = user.group
     if group is None or group.active or ((group.head == user) and not group.is_empty()):
