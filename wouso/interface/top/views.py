@@ -83,6 +83,7 @@ def pyramid(request):
                             context_instance=RequestContext(request))
 
 def topclasses(request):
+    #TODO Use ListView
     # top classes
     classes = PlayerGroup.objects.exclude(parent=None).order_by('points')
     classes = list(classes)

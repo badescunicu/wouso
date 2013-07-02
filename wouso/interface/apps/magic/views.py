@@ -17,6 +17,7 @@ from wouso.interface.activity.models import Activity
 
 # marche
 def bazaar(request, message='', error=''):
+    #TODO use generic class based view
     player = request.user.get_profile() if request.user.is_authenticated() else None
     spells = Spell.objects.all().order_by('-available', 'level_required')
 
@@ -57,6 +58,7 @@ def bazaar(request, message='', error=''):
 
 @login_required
 def bazaar_exchange(request):
+    #TODO move logic to model
     gold_rate = scoring.calculate('gold-points-rate', gold=1)['points']
     points_rate = scoring.calculate('points-gold-rate', points=1)['gold']
 
@@ -135,6 +137,7 @@ def bazaar_buy(request, spell):
 
 @login_required
 def magic_cast(request, destination=None, spell=None):
+    #TODO move logic to model
     player = request.user.get_profile()
     destination = get_object_or_404(Player, pk=destination)
 
@@ -172,6 +175,7 @@ def magic_cast(request, destination=None, spell=None):
 
 @login_required
 def affected_players(request):
+    #TODO Move logic to model and use ListView
     try:
         spell_id = int(request.GET.get('spell_id', None))
         user_id = int(request.GET.get('user', None))

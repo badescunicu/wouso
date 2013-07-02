@@ -13,6 +13,7 @@ from wouso.interface.apps.messaging.forms import ComposeForm
 
 @login_required
 def home(request, quiet=None, box=None, page=u'0'):
+    #TODO Use generic class based view
 
     profile = request.user.get_profile()
     msg_user = profile.get_extension(MessagingUser)
@@ -75,6 +76,7 @@ def create(request, to=None, reply_to=None):
 
 @login_required
 def message(request, mid):
+    #TODO move logic to model and use DetailView
     message = get_object_or_404(Message, pk=mid)
 
     me = request.user.get_profile().get_extension(MessagingUser)

@@ -19,6 +19,7 @@ from wouso.core.game import get_games
 
 @login_required
 def player_points_history(request, id):
+    #TODO Use ListView
     player = get_object_or_404(Player, pk=id)
     hist = History.objects.filter(user=player).order_by('-timestamp')[:500]
     return render_to_response('profile/points_history.html',
@@ -114,6 +115,7 @@ def user_profile(request, id, page=u'1'):
 
 @login_required
 def player_contact(request, player):
+    #TODO Use DetailView
     player = get_object_or_404(Player, pk=player)
 
     return render_to_response('profile/contactbox.html',
@@ -194,6 +196,7 @@ def player_race(request, race_id):
 
 @login_required
 def groups_index(request):
+    #TODO Use ListView
     PlayerGroup.top = lambda(self): GroupHistory(self)
     groups = PlayerGroup.objects.exclude(parent=None).order_by('name')
 
@@ -206,6 +209,7 @@ def groups_index(request):
 @login_required
 def magic_summary(request):
     """ Display a summary of spells cast by me or on me """
+    #TODO Use ListView
     player = request.user.get_profile()
 
     cast_spells = PlayerSpellDue.objects.filter(source=player).all()

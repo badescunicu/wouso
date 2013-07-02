@@ -99,6 +99,7 @@ def formulas(request):
 
 @permission_required('config.change_setting')
 def edit_formula(request, id):
+    #TODO Use a class based view
     formula = get_object_or_404(Formula, pk=id)
     if request.method == "POST":
         form = FormulaForm(data=request.POST, instance=formula)
@@ -136,6 +137,7 @@ def add_formula(request):
 
 @permission_required('config.change_setting')
 def spells(request):
+    #TODO Use a class based view
     spells = Spell.objects.all()
     spells_bought = 0
     spells_used = 0
@@ -159,6 +161,7 @@ def spells(request):
 
 @permission_required('config.change_setting')
 def edit_spell(request, id):
+    #TODO Use a class based view
     spell = get_object_or_404(Spell, pk=id)
     if request.method == "POST":
         form = SpellForm(data = request.POST, instance = spell, files=request.FILES)
@@ -519,6 +522,7 @@ def qpool_import_from_upload(request):
 
 @permission_required('config.change_setting')
 def qpool_tag_questions(request):
+    #TODO Use a class based view
     class TagForm(forms.Form):
         questions = forms.MultipleChoiceField(choices=[(q.pk, q.text) for q in Question.objects.all()])
         tag = forms.ChoiceField(choices=[(t.pk, t.name) for t in Tag.objects.all().exclude(name__in=['qotd', 'quest', 'challenge'])])
@@ -546,6 +550,7 @@ def qpool_tag_questions(request):
 
 @permission_required('config.change_setting')
 def qpool_managetags(request):
+    #TODO ListView
     tags = Tag.objects.all().order_by('category')
 
     return render_to_response('cpanel/qpool_managetags.html',
@@ -658,6 +663,7 @@ def artifactset(request, id):
 
 @permission_required('config.change_setting')
 def artifact_home(request, group=None):
+    #TODO Use a class based view
     if group is None:
         group = 'Default'
 
@@ -819,6 +825,7 @@ def add_player(request):
 
 @permission_required('config.change_setting')
 def edit_player(request, user_id):
+    #TODO Use class based view
     user = get_object_or_404(User, pk=user_id)
     if request.method == "POST":
         form = UserForm(data = request.POST, instance = user)
@@ -882,6 +889,7 @@ def infraction_clear(request, user_id, infraction_id):
 
 @permission_required('config.change_setting')
 def races_groups(request):
+    #TODO Use ListView
     return render_to_response('cpanel/races_groups.html', {'races': Race.objects.all()},
         context_instance=RequestContext(request)
     )
@@ -889,6 +897,7 @@ def races_groups(request):
 
 @permission_required('superuser')
 def roles(request):
+    #TODO Use ListView
     roles = Group.objects.all()
 
     return render_to_response('cpanel/roles.html', {'roles': roles},
@@ -935,6 +944,7 @@ def the_bell(request):
 
 @staff_required
 def reports(request, page=0):
+    #TODO Use ListView
     """
     This page shows the reports
     """
@@ -947,6 +957,7 @@ def reports(request, page=0):
 
 @staff_required
 def edit_report(request, id):
+    #TODO Use class based view
     report = get_object_or_404(Report, pk=id)
 
     if request.method == "POST":
